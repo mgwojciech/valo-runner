@@ -1,7 +1,8 @@
 import { Constants } from "../utils/Constants";
 import { PlayerAnimationHelper } from "../utils/PlayerAnimationHelper";
+import { IGameElement } from "./IGameElements";
 
-export class Player {
+export class Player implements IGameElement {
     public xPosition: number = 30;
     public yPosition: number = Constants.groundLevel;
     public get renderYPosition() {

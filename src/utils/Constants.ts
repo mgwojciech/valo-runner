@@ -8,10 +8,11 @@ export class Constants {
             return 4;
         }
         return 0;
-    };
+    }
     public static gravityModified = 0.015;
     public static gameCanvasWidth = 1200;
     public static gameCanvasHeight = 600;
     public static isGameRunning = false;
     public static collisionToleranceLevel = 70;
+    public static collectableSize = 40;
 }
