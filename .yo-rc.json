@@ -1,0 +1,13 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": true,
+    "isCreatingSolution": true,
+    "environment": "spo",
+    "version": "1.13.0-beta.17",
+    "libraryName": "valo-runner",
+    "libraryId": "ccdf1472-2ec9-4c40-965e-c3484fa7bfdb",
+    "packageManager": "npm",
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}
