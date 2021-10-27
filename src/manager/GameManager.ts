@@ -12,6 +12,7 @@ export class GameManager {
     protected enemies: Enemy[];
     protected skyBox: Skybox = new Skybox();
     protected collisionDetector = new CollisionDetector();
+    protected gameEnded = false;
     constructor(protected canvas: HTMLCanvasElement) {
         this.player = new Player();
         this.canvasCtx = canvas.getContext("2d");
@@ -23,7 +24,7 @@ export class GameManager {
 
         document.onkeydown = (ev: KeyboardEvent) => {
             if (ev.keyCode === 32) {
-                if (!Constants.isGameRunning) {
+                if (!Constants.isGameRunning && !this.gameEnded) {
                     Constants.isGameRunning = true;
                 }
                 else {
@@ -51,7 +52,7 @@ export class GameManager {
             let collide = this.collisionDetector.detectCollision(this.player, enemy);
             if (collide) {
                 Constants.isGameRunning = false;
-                Constants.scrollSpeed = 0;
+                this.gameEnded = true;
             }
         }
     }
