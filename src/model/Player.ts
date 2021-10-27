@@ -10,8 +10,9 @@ export class Player {
     protected rideAnimation: PlayerAnimationHelper;
     private jumping: boolean = false;
     private doubleJump: boolean = false;
-    protected spriteSize: number = Constants.playerSize;
+    public spriteSize: number = Constants.playerSize;
     private currentJumpSpeed: number = 0;
+    protected lastAnimation;
 
     constructor() {
         this.rideAnimation = new PlayerAnimationHelper([
@@ -22,6 +23,7 @@ export class Player {
             "ValoBot-moving5.png",
             "ValoBot-moving6.png"
         ]);
+        this.lastAnimation = this.rideAnimation.getAnimation();
     }
     public update() {
         if (Constants.isGameRunning) {
@@ -30,12 +32,14 @@ export class Player {
     }
     public draw(canvas: HTMLCanvasElement) {
         let context = canvas.getContext("2d");
-        let animation = this.rideAnimation.getAnimation();
-        context.drawImage(animation,
+        if (Constants.isGameRunning) {
+            this.lastAnimation = this.rideAnimation.getAnimation();
+        }
+        context.drawImage(this.lastAnimation,
             0,
             0,
-            animation.width,
-            animation.height,
+            this.lastAnimation.width,
+            this.lastAnimation.height,
             this.xPosition,
             this.renderYPosition,
             this.spriteSize,

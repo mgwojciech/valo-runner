@@ -7,5 +7,6 @@ export class Constants {
     public static gravityModified = 0.02;
     public static gameCanvasWidth = 1200;
     public static gameCanvasHeight = 600;
-    public static isGameRunning = true;
+    public static isGameRunning = false;
+    public static collisionToleranceLevel = 7;
 }

@@ -9,6 +9,7 @@ export class Enemy extends Player {
             "enemy.png"
         ]);
         this.spriteSize = Constants.enemySize;
+        this.lastAnimation = this.rideAnimation.getAnimation();
     }
 
     public update() {
