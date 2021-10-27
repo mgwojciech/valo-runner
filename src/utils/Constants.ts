@@ -1,5 +1,5 @@
 export class Constants {
-    public static groundLevel = 600;
+    public static groundLevel = 550;
     public static jumpTime = 10;
     public static playerSize = 150;
     public static enemySize = 200;

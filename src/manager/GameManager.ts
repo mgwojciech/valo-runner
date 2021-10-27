@@ -41,10 +41,10 @@ export class GameManager {
     public animate = () => {
         this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.skyBox.draw(this.canvas);
-        this.player.update();
-        this.player.draw(this.canvas);
         this.ground.update();
         this.ground.draw(this.canvas);
+        this.player.update();
+        this.player.draw(this.canvas);
         this.enemies.forEach(enemy => {
             enemy.update();
             enemy.draw(this.canvas);
