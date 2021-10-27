@@ -17,10 +17,30 @@ export class GameManager {
         this.player = new Player();
         this.canvasCtx = canvas.getContext("2d");
         this.ground = new Ground();
-        let enemy = new Enemy();
+        let enemy = new Enemy([
+            "frame1.png",
+            "frame2.png",
+            "frame3.png",
+            "frame4.png",
+            "frame5.png",
+            "frame6.png",
+            "frame7.png",
+            "frame8.png"]);
         enemy.xPosition = 800;
 
-        this.enemies = [enemy];
+        let enemyInka = new Enemy([
+            "inka1.png",
+            "inka2.png",
+            "inka3.png",
+            "inka4.png",
+            "inka5.png",
+            "inka6.png",
+            "inka7.png",
+            "inka8.png"
+        ]);
+        enemyInka.xPosition = 1000;
+
+        this.enemies = [enemy, enemyInka];
 
         document.onkeydown = (ev: KeyboardEvent) => {
             if (ev.keyCode === 32) {

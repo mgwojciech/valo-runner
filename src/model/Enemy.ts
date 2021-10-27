@@ -4,18 +4,9 @@ import { Ground } from "./Ground";
 import { Player } from "./Player";
 
 export class Enemy extends Player {
-    constructor() {
+    constructor(animationFrames: string[]) {
         super();
-        this.rideAnimation = new PlayerAnimationHelper([
-            "frame1.png",
-            "frame2.png",
-            "frame3.png",
-            "frame4.png",
-            "frame5.png",
-            "frame6.png",
-            "frame7.png",
-            "frame8.png"
-        ]);
+        this.rideAnimation = new PlayerAnimationHelper(animationFrames);
         this.spriteSize = Constants.enemySize;
         this.lastAnimation = this.rideAnimation.getAnimation();
         this.yPosition = Constants.groundLevel + 10;
