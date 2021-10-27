@@ -24,7 +24,9 @@ export class Player {
         ]);
     }
     public update() {
-        this.handleJump();
+        if (Constants.isGameRunning) {
+            this.handleJump();
+        }
     }
     public draw(canvas: HTMLCanvasElement) {
         let context = canvas.getContext("2d");

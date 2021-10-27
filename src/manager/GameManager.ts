@@ -39,5 +39,8 @@ export class GameManager {
             enemy.draw(this.canvas);
         });
         requestAnimationFrame(this.animate);
+        for(let enemy of this.enemies){
+            //let collide = this.collisionDetector.detectCollision(player, enemy);
+        }
     }
 }

@@ -11,7 +11,8 @@ export class Enemy extends Player {
         this.spriteSize = Constants.enemySize;
     }
 
-    public update(){
-        this.xPosition = (((this.xPosition - Constants.scrollSpeed * 1.5) % Constants.gameCanvasWidth) + Constants.gameCanvasWidth) % Constants.gameCanvasWidth;
+    public update() {
+        if (Constants.isGameRunning)
+            this.xPosition = (((this.xPosition - Constants.scrollSpeed * 1.5) % Constants.gameCanvasWidth) + Constants.gameCanvasWidth) % Constants.gameCanvasWidth;
     }
 }
