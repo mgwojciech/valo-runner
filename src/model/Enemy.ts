@@ -7,10 +7,14 @@ export class Enemy extends Player {
     constructor() {
         super();
         this.rideAnimation = new PlayerAnimationHelper([
-            "zombie1frame1.png",
-            "zombie1frame2.png",
-            "zombie1frame3.png",
-            "zombie1frame4.png"
+            "frame1.png",
+            "frame2.png",
+            "frame3.png",
+            "frame4.png",
+            "frame5.png",
+            "frame6.png",
+            "frame7.png",
+            "frame8.png"
         ]);
         this.spriteSize = Constants.enemySize;
         this.lastAnimation = this.rideAnimation.getAnimation();
