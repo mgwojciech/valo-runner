@@ -18,7 +18,7 @@ export default class ValoRunner extends React.Component<{}, {}> {
   public render(): React.ReactElement<IValoRunnerProps> {
     return (
       <div className={ styles.valoRunner }>
-        <canvas id="game-canvas" style={{width: Constants.gameCanvasWidth, height:Constants.gameCanvasHeight, border: "1px solid black"}}>
+        <canvas id="game-canvas" width={Constants.gameCanvasWidth} height={Constants.gameCanvasHeight} style={{width: "100%", border: "1px solid black"}}>
 
         </canvas>
       </div>
