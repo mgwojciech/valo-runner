@@ -10,6 +10,7 @@ export class GameManager {
     protected player: Player;
     protected ground: Ground;
     protected canvasCtx: CanvasRenderingContext2D;
+    protected canvasCtxSub: CanvasRenderingContext2D;
     protected enemies: Enemy[];
     protected collectables: Enemy[] = [];
     protected skyBox: Skybox = new Skybox();
@@ -19,6 +20,7 @@ export class GameManager {
     constructor(protected canvas: HTMLCanvasElement) {
         this.player = new Player();
         this.canvasCtx = canvas.getContext("2d");
+        this.canvasCtxSub = canvas.getContext("2d");
         this.ground = new Ground();
         this.initializeEnemies();
         this.initializeCollectables();
@@ -64,15 +66,22 @@ export class GameManager {
                 this.gameEnded = true;
             }
         }
-        this.canvasCtx.font = '24px serif';
-        this.canvasCtx.fillStyle = "#6e7278";
-        this.canvasCtx.fillText(`Score: ${this.points}`, 10, 100);
+        this.canvasCtx.font = "600 18px 'Segoe UI'"
+        this.canvasCtx.fillStyle = "#bebebf";
+        this.canvasCtx.textAlign = "end"
+        this.canvasCtx.fillText(`SCORE`, 1150, 50);
+
+        this.canvasCtxSub.font = "700 32px 'Segoe UI'"
+        this.canvasCtxSub.fillStyle = "#fff";
+        this.canvasCtxSub.textAlign = "end"
+        this.canvasCtxSub.fillText(`${this.points}`, 1150, 80);
     }
 
     private addRandomCollectable() {
         let collectable = new Collectable(["logo-star.png"]);
         collectable.xPosition = 800;
         collectable.yPosition = (Math.random() * 300) + 200;
+        collectable.spriteSize = 120;
         this.collectables.push(collectable);
     }
 
@@ -108,6 +117,7 @@ export class GameManager {
         let collectable = new Collectable(["logo-star.png"]);
         collectable.xPosition = 600;
         collectable.yPosition = 200;
+        collectable.spriteSize = 120;
         this.collectables.push(collectable);
     }
 }
