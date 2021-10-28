@@ -1,10 +1,13 @@
 import { Enemy } from "../model/Enemy";
 import { Player } from "../model/Player";
 import { CollisionDetector } from "../utils/CollisionDetector";
+import { Sound } from "../model/Sound";
+
 
 export class EnemyManager {
 
     protected collisionDetector = new CollisionDetector();
+    protected sound = new Sound();
     protected enemies: Enemy[];
     constructor(protected canvas: HTMLCanvasElement) {
         this.initializeEnemies();
@@ -44,6 +47,7 @@ export class EnemyManager {
             let collide = this.collisionDetector.detectCollision(player, enemy);
             if (collide) {
                 collision = true;
+                this.sound.playSound("https://cdn.valosolutions.com/valo-runner/splatttmp3-6295.mp3")
             }
         });
         return collision;
