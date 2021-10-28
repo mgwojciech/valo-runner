@@ -25,8 +25,10 @@ export class LeaderBoardManager {
             board = new LeaderBoard();
             board.scores = [{ user: this.user, score: score }];
         }
-        //keep only top 10
-        board.scores.splice(0, 10);
+        if (board.scores.length > 10) {
+            //keep only top 10
+            board.scores.splice(10, board.scores.length);
+        }
         await this.leaderBoardProvider.updateLeaderboard(board);
     }
 }

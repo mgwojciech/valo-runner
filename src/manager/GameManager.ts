@@ -146,7 +146,7 @@ export class GameManager {
             "inka7.png",
             "inka8.png"
         ]);
-        enemyInka.xPosition = 1000;
+        enemyInka.xPosition = 950;
 
         this.enemies = [enemy, enemyInka];
     }
