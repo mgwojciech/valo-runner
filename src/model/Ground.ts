@@ -18,10 +18,10 @@ export class Ground {
     }
     public update() {
         this.rocks.forEach(rock => rock.xPosition = (((rock.xPosition - Constants.scrollSpeed) % 800) + 800) % 800);
-        this.imageStartPixel = (this.imageStartPixel + Constants.scrollSpeed) % Constants.gameCanvasWidth;
+        this.imageStartPixel = (this.imageStartPixel + Constants.scrollSpeed) % 512;
     }
-    protected scaleToFill(img, canvas, ctx:CanvasRenderingContext2D ) {
-        ctx.drawImage(img, this.imageStartPixel, 0, this.imageStartPixel + (img.width / 2), img.height, 0, 550, canvas.width, 50);
+    protected scaleToFill(img, canvas, ctx: CanvasRenderingContext2D) {
+        ctx.drawImage(img, this.imageStartPixel, 0, this.imageStartPixel + 512, img.height, 0, 550, canvas.width, 50);
     }
     public draw(canvas: HTMLCanvasElement) {
         let context = canvas.getContext("2d");

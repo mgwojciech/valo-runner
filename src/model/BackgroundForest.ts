@@ -11,10 +11,10 @@ export class BackgroundForest {
         this.forestImage.src = require("./assets/forest.png");
     }
     public update() {
-        this.imageStartPixel = (this.imageStartPixel + Constants.scrollSpeed * 0.6) % Constants.gameCanvasWidth;
+        this.imageStartPixel = (this.imageStartPixel + Constants.scrollSpeed * 0.5) % (636);
     }
-    protected scaleToFill(img, canvas, ctx:CanvasRenderingContext2D ) {
-        ctx.drawImage(img, this.imageStartPixel, 0, this.imageStartPixel + (img.width / 2), img.height, 0, 350, canvas.width, 250);
+    protected scaleToFill(img, canvas, ctx: CanvasRenderingContext2D) {
+        ctx.drawImage(img, this.imageStartPixel, 300, this.imageStartPixel + 636, img.height, 0, 345, canvas.width, 495);
     }
     public draw(canvas: HTMLCanvasElement) {
         let context = canvas.getContext("2d");

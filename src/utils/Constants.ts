@@ -3,8 +3,8 @@ export class Constants {
     public static jumpTime = 14;
     public static playerSize = 150;
     public static enemySize = 200;
-    public static get scrollSpeed (){
-        if(Constants.isGameRunning){
+    public static get scrollSpeed() {
+        if (Constants.isGameRunning) {
             return Constants.internalScrollSpeed;
         }
         return 0;

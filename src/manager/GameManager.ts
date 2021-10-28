@@ -4,6 +4,7 @@ import { Enemy } from "../model/Enemy";
 import { Ground } from "../model/Ground";
 import { Player } from "../model/Player";
 import { Skybox } from "../model/Skybox";
+//import { audio } from "../model/Audio";
 import { CollisionDetector } from "../utils/CollisionDetector";
 import { Constants } from "../utils/Constants";
 import { EnemyManager } from "./EnemyManager";
@@ -17,6 +18,7 @@ export class GameManager {
     protected collectables: Enemy[] = [];
     protected skyBox: Skybox = new Skybox();
     protected forest: BackgroundForest = new BackgroundForest();
+    //protected audio: audio = new audio();
     protected collisionDetector = new CollisionDetector();
     protected gameEnded = false;
     public points = 0;
@@ -24,6 +26,7 @@ export class GameManager {
         user: string;
         score: number;
     }[];
+    protected welcomeImage = new Image();
     protected enemyManager: EnemyManager;
     constructor(protected canvas: HTMLCanvasElement, protected leaderBoardManager: LeaderBoardManager) {
         this.player = new Player();
@@ -32,6 +35,7 @@ export class GameManager {
         this.ground = new Ground();
         this.enemyManager = new EnemyManager(canvas);
         this.initializeCollectables();
+        this.welcomeImage.src = require("../model/assets/start-screen.jpg");
         document.onkeydown = (ev: KeyboardEvent) => {
             if (ev.keyCode === 32) {
                 if (!Constants.isGameRunning && !this.gameEnded) {
@@ -51,33 +55,39 @@ export class GameManager {
     }
 
     public animate = () => {
-        this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.skyBox.draw(this.canvas);
-        this.ground.update();
-        this.ground.draw(this.canvas);
-        this.forest.update();
-        this.forest.draw(this.canvas);
-        this.player.update();
-        this.player.draw(this.canvas);
-        if (this.enemyManager.drawEnemiesAndCheckForCollisions(this.player)) {
-            if (!this.gameEnded) {
-                this.leaderBoardManager.addScore(this.points);
-            }
-            Constants.isGameRunning = false;
-            this.gameEnded = true;
-        }
-        this.collectables.forEach(enemy => {
-            if (this.collisionDetector.detectCollision(this.player, enemy, 10)) {
-                this.points += 100;
-                this.collectables.splice(this.collectables.indexOf(enemy), 1);
-                this.addRandomCollectable();
-            }
-            enemy.update();
-            enemy.draw(this.canvas);
-        });
-        requestAnimationFrame(this.animate);
+        // if (!Constants.isGameRunning && !this.gameEnded) {
+        //     this.canvasCtx.drawImage(this.welcomeImage,  0, 0, this.welcomeImage.width, this.welcomeImage.height, 0, 0, this.canvas.width, this.canvas.height);
+        // }
+         {
 
-        this.drawScoreBoard();
+            this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.skyBox.draw(this.canvas);
+            this.ground.update();
+            this.ground.draw(this.canvas);
+            this.forest.update();
+            this.forest.draw(this.canvas);
+            this.player.update();
+            this.player.draw(this.canvas);
+            if (this.enemyManager.drawEnemiesAndCheckForCollisions(this.player)) {
+                if (!this.gameEnded) {
+                    this.leaderBoardManager.addScore(this.points);
+                }
+                Constants.isGameRunning = false;
+                this.gameEnded = true;
+            }
+            this.collectables.forEach(enemy => {
+                if (this.collisionDetector.detectCollision(this.player, enemy, 10)) {
+                    this.points += 100;
+                    this.collectables.splice(this.collectables.indexOf(enemy), 1);
+                    this.addRandomCollectable();
+                }
+                enemy.update();
+                enemy.draw(this.canvas);
+            });
+            requestAnimationFrame(this.animate);
+
+            this.drawScoreBoard();
+        }
     }
 
     private drawScoreBoard() {
@@ -133,4 +143,13 @@ export class GameManager {
         //collectable.spriteSize = 120;
         this.collectables.push(collectable);
     }
+
+    public playAudio() {
+        let audioPath = "https://cdn.valosolutions.com/valo-runner/0096.%20Fun%20Halloween%20-%20AShamaluevMusic.mp3";
+        //@ts-ignore
+        const music = new Audio(audioPath);
+        music.play();
+        music.volume = 0.3;
+        music.loop = true;
+    };
 }
