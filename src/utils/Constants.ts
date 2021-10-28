@@ -9,12 +9,8 @@ export class Constants {
         }
         return 0;
     }
-<<<<<<< HEAD
-    public static gravityModified = 0.036;
-=======
     public static internalScrollSpeed = 4
-    public static gravityModified = 0.015;
->>>>>>> 6a80fe0f29059dd8bdd137604ffd7dd2ad32e5af
+    public static gravityModified = 0.035;
     public static gameCanvasWidth = 1200;
     public static gameCanvasHeight = 600;
     public static isGameRunning = false;
