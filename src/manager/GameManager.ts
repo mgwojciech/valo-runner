@@ -1,3 +1,4 @@
+import { BackgroundForest } from "../model/BackgroundForest";
 import { Collectable } from "../model/Collectable";
 import { Enemy } from "../model/Enemy";
 import { Ground } from "../model/Ground";
@@ -18,6 +19,8 @@ export class GameManager {
     protected collectables: Enemy[] = [];
     protected skyBox: Skybox = new Skybox();
     protected sound: Sound = new Sound();
+    protected forest: BackgroundForest = new BackgroundForest();
+    //protected audio: audio = new audio();
     protected collisionDetector = new CollisionDetector();
     protected gameEnded = false;
     public points = 0;
@@ -25,6 +28,7 @@ export class GameManager {
         user: string;
         score: number;
     }[];
+    protected welcomeImage = new Image();
     protected enemyManager: EnemyManager;
     constructor(protected canvas: HTMLCanvasElement, protected leaderBoardManager: LeaderBoardManager) {
         this.player = new Player();
@@ -33,6 +37,7 @@ export class GameManager {
         this.ground = new Ground();
         this.enemyManager = new EnemyManager(canvas);
         this.initializeCollectables();
+        this.welcomeImage.src = require("../model/assets/start-screen.jpg");
         document.onkeydown = (ev: KeyboardEvent) => {
             if (ev.keyCode === 32) {
                 if (!Constants.isGameRunning && !this.gameEnded) {
@@ -56,6 +61,8 @@ export class GameManager {
         this.skyBox.draw(this.canvas);
         this.ground.update();
         this.ground.draw(this.canvas);
+        this.forest.update();
+        this.forest.draw(this.canvas);
         this.player.update();
         this.player.draw(this.canvas);
         if (this.enemyManager.drawEnemiesAndCheckForCollisions(this.player)) {
