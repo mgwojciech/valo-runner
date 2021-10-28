@@ -9,7 +9,7 @@ export class LeaderBoardManager {
     public async getLeaderBoard() {
         let board = await this.leaderBoardProvider.getLeaderboard();
         if (board && board.scores) {
-            board.scores.sort((a, b) => a.score - b.score);
+            board.scores.sort((a, b) => b.score - a.score);
             return board.scores;
         }
         return [];
@@ -19,12 +19,14 @@ export class LeaderBoardManager {
         let board = await this.leaderBoardProvider.getLeaderboard();
         if (board && board.scores) {
             board.scores.push({ user: this.user, score: score });
-            board.scores.sort((a, b) => a.score - b.score);
+            board.scores.sort((a, b) => b.score - a.score);
         }
-        else{
+        else {
             board = new LeaderBoard();
             board.scores = [{ user: this.user, score: score }];
         }
-        await this.leaderBoardProvider.updateLeaderboard(board); 
+        //keep only top 10
+        board.scores.splice(0, 10);
+        await this.leaderBoardProvider.updateLeaderboard(board);
     }
 }
