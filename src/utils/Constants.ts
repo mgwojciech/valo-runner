@@ -5,10 +5,11 @@ export class Constants {
     public static enemySize = 200;
     public static get scrollSpeed (){
         if(Constants.isGameRunning){
-            return 4;
+            return Constants.internalScrollSpeed;
         }
         return 0;
     }
+    public static internalScrollSpeed = 4
     public static gravityModified = 0.015;
     public static gameCanvasWidth = 1200;
     public static gameCanvasHeight = 600;

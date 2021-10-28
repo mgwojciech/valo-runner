@@ -36,6 +36,17 @@ export class GameManager {
                 ev.stopImmediatePropagation();
             }
         };
+        setInterval(() => {
+            if (Constants.isGameRunning) {
+                this.points += 20;
+            }
+        }, 1000);
+        
+        setInterval(() => {
+            if (Constants.isGameRunning) {
+                Constants.internalScrollSpeed = Constants.internalScrollSpeed * 1.05;
+            }
+        }, 5000);
     }
 
     public animate = () => {
