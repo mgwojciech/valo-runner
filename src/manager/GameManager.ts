@@ -6,6 +6,7 @@ import { Skybox } from "../model/Skybox";
 //import { audio } from "../model/Audio";
 import { CollisionDetector } from "../utils/CollisionDetector";
 import { Constants } from "../utils/Constants";
+import { EnemyManager } from "./EnemyManager";
 import { LeaderBoardManager } from "./LeaderBoardManager";
 
 export class GameManager {
@@ -13,7 +14,6 @@ export class GameManager {
     protected ground: Ground;
     protected canvasCtx: CanvasRenderingContext2D;
     protected canvasCtxSub: CanvasRenderingContext2D;
-    protected enemies: Enemy[];
     protected collectables: Enemy[] = [];
     protected skyBox: Skybox = new Skybox();
     //protected audio: audio = new audio();
@@ -24,12 +24,13 @@ export class GameManager {
         user: string;
         score: number;
     }[];
+    protected enemyManager: EnemyManager;
     constructor(protected canvas: HTMLCanvasElement, protected leaderBoardManager: LeaderBoardManager) {
         this.player = new Player();
         this.canvasCtx = canvas.getContext("2d");
         this.canvasCtxSub = canvas.getContext("2d");
         this.ground = new Ground();
-        this.initializeEnemies();
+        this.enemyManager = new EnemyManager(canvas);
         this.initializeCollectables();
         document.onkeydown = (ev: KeyboardEvent) => {
             if (ev.keyCode === 32) {
@@ -56,10 +57,13 @@ export class GameManager {
         this.ground.draw(this.canvas);
         this.player.update();
         this.player.draw(this.canvas);
-        this.enemies.forEach(enemy => {
-            enemy.update();
-            enemy.draw(this.canvas);
-        });
+        if (this.enemyManager.drawEnemiesAndCheckForCollisions(this.player)) {
+            if (!this.gameEnded) {
+                this.leaderBoardManager.addScore(this.points);
+            }
+            Constants.isGameRunning = false;
+            this.gameEnded = true;
+        }
         this.collectables.forEach(enemy => {
             if (this.collisionDetector.detectCollision(this.player, enemy, 10)) {
                 this.points += 100;
@@ -70,14 +74,7 @@ export class GameManager {
             enemy.draw(this.canvas);
         });
         requestAnimationFrame(this.animate);
-        for (let enemy of this.enemies) {
-            let collide = this.collisionDetector.detectCollision(this.player, enemy);
-            if (collide) {
-                Constants.isGameRunning = false;
-                this.gameEnded = true;
-                this.leaderBoardManager.addScore(this.points);
-            }
-        }
+
         this.drawScoreBoard();
     }
 
@@ -125,33 +122,7 @@ export class GameManager {
         this.collectables.push(collectable);
     }
 
-    private initializeEnemies() {
-        let enemy = new Enemy([
-            "frame1.png",
-            "frame2.png",
-            "frame3.png",
-            "frame4.png",
-            "frame5.png",
-            "frame6.png",
-            "frame7.png",
-            "frame8.png"
-        ]);
-        enemy.xPosition = 800;
 
-        let enemyInka = new Enemy([
-            "inka1.png",
-            "inka2.png",
-            "inka3.png",
-            "inka4.png",
-            "inka5.png",
-            "inka6.png",
-            "inka7.png",
-            "inka8.png"
-        ]);
-        enemyInka.xPosition = 950;
-
-        this.enemies = [enemy, enemyInka];
-    }
 
     private initializeCollectables() {
         let collectable = new Collectable(["logo-star.png"]);
