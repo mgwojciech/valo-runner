@@ -1,3 +1,4 @@
+import { BackgroundForest } from "../model/BackgroundForest";
 import { Collectable } from "../model/Collectable";
 import { Enemy } from "../model/Enemy";
 import { Ground } from "../model/Ground";
@@ -15,6 +16,7 @@ export class GameManager {
     protected canvasCtxSub: CanvasRenderingContext2D;
     protected collectables: Enemy[] = [];
     protected skyBox: Skybox = new Skybox();
+    protected forest: BackgroundForest = new BackgroundForest();
     protected collisionDetector = new CollisionDetector();
     protected gameEnded = false;
     public points = 0;
@@ -53,6 +55,8 @@ export class GameManager {
         this.skyBox.draw(this.canvas);
         this.ground.update();
         this.ground.draw(this.canvas);
+        this.forest.update();
+        this.forest.draw(this.canvas);
         this.player.update();
         this.player.draw(this.canvas);
         if (this.enemyManager.drawEnemiesAndCheckForCollisions(this.player)) {
