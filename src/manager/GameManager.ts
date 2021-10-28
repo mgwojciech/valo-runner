@@ -118,9 +118,8 @@ export class GameManager {
 
     private addRandomCollectable() {
         let collectable = new Collectable(["logo-star.png"]);
-        collectable.xPosition = 800;
+        collectable.xPosition = 1200;
         collectable.yPosition = (Math.random() * 300) + 200;
-        collectable.spriteSize = 120;
         this.collectables.push(collectable);
     }
 
@@ -156,7 +155,7 @@ export class GameManager {
         let collectable = new Collectable(["logo-star.png"]);
         collectable.xPosition = 600;
         collectable.yPosition = 200;
-        collectable.spriteSize = 120;
+        //collectable.spriteSize = 120;
         this.collectables.push(collectable);
     }
 }

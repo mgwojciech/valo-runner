@@ -23,7 +23,7 @@ export class Ground {
        
         const forestPtrn = context.createPattern(this.forestImage, 'repeat');
         context.fillStyle = forestPtrn;
-        context.fillRect(0, 400, canvas.width, 200);
+        context.fillRect(0, 350, canvas.width, 250);
         const groundPtrn = context.createPattern(this.groundImage, 'repeat');
         context.fillStyle = groundPtrn;
         context.fillRect(0, 550, canvas.width, 50);

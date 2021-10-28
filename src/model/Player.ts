@@ -55,7 +55,7 @@ export class Player implements IGameElement {
         else {
             if (this.jumping && !this.doubleJump) {
                 this.doubleJump = true;
-                this.currentJumpSpeed = Constants.jumpTime * 0.7;
+                this.currentJumpSpeed = Constants.jumpTime * 0.6;
             }
         }
     }
