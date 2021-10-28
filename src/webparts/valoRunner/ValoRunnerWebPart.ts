@@ -21,6 +21,7 @@ export default class ValoRunnerWebPart extends BaseClientSideWebPart<IValoRunner
     const element: React.ReactElement<{}> = React.createElement(
       ValoRunner,
       {
+        spContext: this.context
       }
     );
 
