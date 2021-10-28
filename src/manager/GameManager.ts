@@ -8,6 +8,7 @@ import { CollisionDetector } from "../utils/CollisionDetector";
 import { Constants } from "../utils/Constants";
 import { EnemyManager } from "./EnemyManager";
 import { LeaderBoardManager } from "./LeaderBoardManager";
+import { Sound } from "../model/Sound";
 
 export class GameManager {
     protected player: Player;
@@ -16,7 +17,7 @@ export class GameManager {
     protected canvasCtxSub: CanvasRenderingContext2D;
     protected collectables: Enemy[] = [];
     protected skyBox: Skybox = new Skybox();
-    //protected audio: audio = new audio();
+    protected sound: Sound = new Sound();
     protected collisionDetector = new CollisionDetector();
     protected gameEnded = false;
     public points = 0;
@@ -60,9 +61,11 @@ export class GameManager {
         if (this.enemyManager.drawEnemiesAndCheckForCollisions(this.player)) {
             if (!this.gameEnded) {
                 this.leaderBoardManager.addScore(this.points);
+                this.sound.playSound("https://cdn.valosolutions.com/valo-runner/splatttmp3-6295.mp3");
             }
             Constants.isGameRunning = false;
             this.gameEnded = true;
+
         }
         this.collectables.forEach(enemy => {
             if (this.collisionDetector.detectCollision(this.player, enemy, 10)) {

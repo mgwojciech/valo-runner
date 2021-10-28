@@ -47,7 +47,6 @@ export class EnemyManager {
             let collide = this.collisionDetector.detectCollision(player, enemy);
             if (collide) {
                 collision = true;
-                this.sound.playSound("https://cdn.valosolutions.com/valo-runner/splatttmp3-6295.mp3")
             }
         });
         return collision;

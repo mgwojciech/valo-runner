@@ -1,8 +1,10 @@
 import { Constants } from "../utils/Constants";
 import { PlayerAnimationHelper } from "../utils/PlayerAnimationHelper";
 import { IGameElement } from "./IGameElements";
+import { Sound } from "./Sound";
 
 export class Player implements IGameElement {
+    protected sound: Sound = new Sound();
     public xPosition: number = 30;
     public yPosition: number = Constants.groundLevel;
     public get renderYPosition() {
@@ -50,6 +52,7 @@ export class Player implements IGameElement {
     public jump() {
         if (!this.jumping) {
             this.jumping = true;
+            this.sound.playSound("https://cdn.valosolutions.com/valo-runner/cartoon-jumpwav-6462.mp3");
             this.currentJumpSpeed = Constants.jumpTime;
         }
         else {
