@@ -5,6 +5,7 @@ import { Player } from "../model/Player";
 import { Skybox } from "../model/Skybox";
 import { CollisionDetector } from "../utils/CollisionDetector";
 import { Constants } from "../utils/Constants";
+import { LeaderBoardManager } from "./LeaderBoardManager";
 
 export class GameManager {
     protected player: Player;
@@ -17,7 +18,11 @@ export class GameManager {
     protected collisionDetector = new CollisionDetector();
     protected gameEnded = false;
     public points = 0;
-    constructor(protected canvas: HTMLCanvasElement) {
+    public leaderBoard: {
+        user: string;
+        score: number;
+    }[];
+    constructor(protected canvas: HTMLCanvasElement, protected leaderBoardManager: LeaderBoardManager) {
         this.player = new Player();
         this.canvasCtx = canvas.getContext("2d");
         this.canvasCtxSub = canvas.getContext("2d");
@@ -36,17 +41,10 @@ export class GameManager {
                 ev.stopImmediatePropagation();
             }
         };
-        setInterval(() => {
-            if (Constants.isGameRunning) {
-                this.points += 20;
-            }
-        }, 1000);
-        
-        setInterval(() => {
-            if (Constants.isGameRunning) {
-                Constants.internalScrollSpeed = Constants.internalScrollSpeed * 1.05;
-            }
-        }, 5000);
+        this.initializeTimeEvents();
+        this.leaderBoardManager.getLeaderBoard().then(board => {
+            this.leaderBoard = board;
+        });
     }
 
     public animate = () => {
@@ -75,17 +73,47 @@ export class GameManager {
             if (collide) {
                 Constants.isGameRunning = false;
                 this.gameEnded = true;
+                this.leaderBoardManager.addScore(this.points);
             }
         }
-        this.canvasCtx.font = "600 18px 'Segoe UI'"
+        this.drawScoreBoard();
+    }
+
+    private drawScoreBoard() {
+        this.canvasCtx.font = "600 18px 'Segoe UI'";
         this.canvasCtx.fillStyle = "#bebebf";
-        this.canvasCtx.textAlign = "end"
+        this.canvasCtx.textAlign = "end";
         this.canvasCtx.fillText(`SCORE`, 1150, 50);
 
-        this.canvasCtxSub.font = "700 32px 'Segoe UI'"
+        this.canvasCtxSub.font = "700 32px 'Segoe UI'";
         this.canvasCtxSub.fillStyle = "#fff";
-        this.canvasCtxSub.textAlign = "end"
+        this.canvasCtxSub.textAlign = "end";
         this.canvasCtxSub.fillText(`${this.points}`, 1150, 80);
+        if (this.leaderBoard && this.leaderBoard.length > 0) {
+            let leaderBoardPosition = 110;
+            for (let i = 0; i < Math.min(this.leaderBoard.length, 3); i++) {
+                this.canvasCtx.font = "600 18px 'Segoe UI'";
+                this.canvasCtx.fillStyle = "#bebebf";
+                this.canvasCtx.textAlign = "end";
+                this.canvasCtx.fillText(`${this.leaderBoard[i].user}: ${this.leaderBoard[i].score}`, 1150, leaderBoardPosition);
+                leaderBoardPosition += 30;
+            }
+        }
+    }
+
+    private initializeTimeEvents() {
+        setInterval(() => {
+            if (Constants.isGameRunning) {
+                this.points += Constants.survivalBonusPoints;
+            }
+        }, 1000);
+
+        setInterval(() => {
+            if (Constants.isGameRunning) {
+                Constants.internalScrollSpeed = Constants.internalScrollSpeed * 1.05;
+                Constants.survivalBonusPoints += 5;
+            }
+        }, 5000);
     }
 
     private addRandomCollectable() {

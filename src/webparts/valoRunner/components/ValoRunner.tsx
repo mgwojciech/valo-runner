@@ -5,13 +5,17 @@ import { escape } from '@microsoft/sp-lodash-subset';
 import { Player } from '../../../model/Player';
 import { GameManager } from '../../../manager/GameManager';
 import { Constants } from '../../../utils/Constants';
+import { LeaderBoardManager } from '../../../manager/LeaderBoardManager';
+import { LeaderBoardProvider } from '../../../dal/LeaderBoardProvider';
 
 
-export default class ValoRunner extends React.Component<{}, {}> {
+export default class ValoRunner extends React.Component<IValoRunnerProps, {}> {
   public gameManager: GameManager;
 
   public componentDidMount(){
-    this.gameManager = new GameManager(document.getElementById("game-canvas") as HTMLCanvasElement);
+    let provider = new LeaderBoardProvider(this.props.spContext);
+    let user = this.props.spContext.pageContext.user.displayName;
+    this.gameManager = new GameManager(document.getElementById("game-canvas") as HTMLCanvasElement, new LeaderBoardManager(provider, user));
     this.gameManager.animate();
   }
 

@@ -9,7 +9,8 @@ export class Constants {
         }
         return 0;
     }
-    public static internalScrollSpeed = 4
+    public static survivalBonusPoints = 10;
+    public static internalScrollSpeed = 4;
     public static gravityModified = 0.015;
     public static gameCanvasWidth = 1200;
     public static gameCanvasHeight = 600;
