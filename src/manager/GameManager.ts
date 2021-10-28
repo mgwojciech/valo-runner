@@ -3,7 +3,7 @@ import { Enemy } from "../model/Enemy";
 import { Ground } from "../model/Ground";
 import { Player } from "../model/Player";
 import { Skybox } from "../model/Skybox";
-import { audio } from "../model/Audio";
+//import { audio } from "../model/Audio";
 import { CollisionDetector } from "../utils/CollisionDetector";
 import { Constants } from "../utils/Constants";
 import { LeaderBoardManager } from "./LeaderBoardManager";
@@ -162,7 +162,9 @@ export class GameManager {
     }
 
     public playAudio() {
-        const music = new Audio("backgroundMusic.mp3");
+        let audioPath = "https://cdn.valosolutions.com/valo-runner/0096.%20Fun%20Halloween%20-%20AShamaluevMusic.mp3";
+        //@ts-ignore
+        const music = new Audio(audioPath);
         music.play();
         music.volume = 0.3;
         music.loop = true;
