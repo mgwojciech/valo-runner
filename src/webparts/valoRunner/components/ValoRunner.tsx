@@ -5,6 +5,7 @@ import { escape } from '@microsoft/sp-lodash-subset';
 import { Player } from '../../../model/Player';
 import { GameManager } from '../../../manager/GameManager';
 import { Constants } from '../../../utils/Constants';
+import {audio} from "../../../model/Audio";
 
 
 export default class ValoRunner extends React.Component<{}, {}> {
@@ -13,6 +14,7 @@ export default class ValoRunner extends React.Component<{}, {}> {
   public componentDidMount(){
     this.gameManager = new GameManager(document.getElementById("game-canvas") as HTMLCanvasElement);
     this.gameManager.animate();
+    this.gameManager.playAudio();
   }
 
   public render(): React.ReactElement<IValoRunnerProps> {

@@ -2,6 +2,7 @@ import { Enemy } from "../model/Enemy";
 import { Ground } from "../model/Ground";
 import { Player } from "../model/Player";
 import { Skybox } from "../model/Skybox";
+import { audio } from "../model/Audio";
 import { CollisionDetector } from "../utils/CollisionDetector";
 import { Constants } from "../utils/Constants";
 
@@ -11,6 +12,7 @@ export class GameManager {
     protected canvasCtx: CanvasRenderingContext2D;
     protected enemies: Enemy[];
     protected skyBox: Skybox = new Skybox();
+    //protected audio: audio = new audio();
     protected collisionDetector = new CollisionDetector();
     protected gameEnded = false;
     constructor(protected canvas: HTMLCanvasElement) {
@@ -76,4 +78,11 @@ export class GameManager {
             }
         }
     }
+
+    public playAudio() {
+        const music = new Audio("backgroundMusic.mp3");
+        music.play();
+        music.volume = 0.3;
+        music.loop = true;
+    };
 }
